@@ -91,7 +91,7 @@ public class GoldenSmileBuff : Buff
 {
     public override Sprite Sprite
     {
-        get { return Resources.Load<Sprite>("Sprites/Slime"); }
+        get { return Resources.Load<Sprite>("Sprites/Slime1"); }
     }
 
     public override string Description
