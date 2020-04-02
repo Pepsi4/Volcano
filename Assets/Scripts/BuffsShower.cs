@@ -19,11 +19,14 @@ public class BuffsShower : MonoBehaviour
         foreach (Buff buff in PlayerShop.Buffs)
         {
             GameObject gameObject = Instantiate(BuffImageObject, new Vector2(transform.position.x, spawnY), new Quaternion(), transform);
+
             gameObject.GetComponent<Image>().sprite = buff.Sprite;
+            gameObject.GetComponent<Image>().SetNativeSize();
             gameObject.transform.localPosition = new Vector2(0, spawnY);
-           // gameObject.AddComponent<BuffImage>();
             gameObject.GetComponent<BuffImage>().Name = buff.Name;
             gameObject.GetComponent<BuffImage>().Description = buff.Description;
+            gameObject.GetComponent<BuffImage>().Level = buff.Level;
+
             spawnY -= differenceY;
         }
     }

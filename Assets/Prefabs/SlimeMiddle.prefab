@@ -156,12 +156,13 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: fa193782ed91f014ea2edc6c93301d0b, type: 3}
+  m_Sprite: {fileID: 6337278258928162847, guid: 0d6dc45f615f6bd4f8cb6a2dee8c7550,
+    type: 3}
   m_Color: {r: 0.5554866, g: 0.7075472, b: 0.54401034, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.27, y: 0.14}
+  m_Size: {x: 0.35, y: 0.25}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -224,8 +225,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.27, y: 0.14}
-    newSize: {x: 0.27, y: 0.14}
+    oldSize: {x: 0.35, y: 0.25}
+    newSize: {x: 0.35, y: 0.25}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -260,8 +261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57e4d5a8603894a45adf425f531cf14f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ParticleSystemController: {fileID: 9067190014927970932, guid: 32a3aa90b3d9d744ea970a94bb419d16,
-    type: 3}
+  ParticleSystemController: {fileID: 0}
   Coin: {fileID: 7897170293475492578, guid: bf61a509bc84c6b41bb331431a09c6d8, type: 3}
   HealthBar_4: {fileID: 8307123563400886566, guid: b20c2c353693e4342927826911ce839d,
     type: 3}

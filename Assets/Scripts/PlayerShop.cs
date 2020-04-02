@@ -40,5 +40,13 @@ public class PlayerShop : MonoBehaviour
             return false;
         }
     }
+
+    public static void SaveBuff(Buff buff)
+    {
+        // ключ и значение 
+        // ключ = имя бафа
+        // значение = имя бафа + левел
+        // PlayerPrefs.SetString();
+    }
     // public PlayerShop() 
 }

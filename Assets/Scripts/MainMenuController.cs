@@ -7,6 +7,7 @@ public class MainMenuController : MonoBehaviour
     public Animator AnimatorMenu;
     public Animator AnimatorSelectMode;
     public Animator AnimatorShop;
+    public Animator AnimatorBuffsShop;
 
     [SerializeField]
     private AnimationClip ShowUpAnimationFromDown;
@@ -39,6 +40,22 @@ public class MainMenuController : MonoBehaviour
         AnimatorShop.Play(ShowUpAnimationFromTop.name);
 
         AnimatorMenu.Play(HideAnimationDown.name);
+    }
+
+    public void ShowBuffsShop()
+    {
+        AnimatorShop.Play(HideAnimationDown.name);
+
+        AnimatorBuffsShop.Play(ShowUpAnimationFromTop.name);
+    }
+
+    public void HideBuffsShop()
+    {
+        AnimatorBuffsShop.Play(HideAnimationUp.name);
+
+        AnimatorShop.Play(ShowUpAnimationFromDown.name);
+
+        
     }
 
     public void HideShop()

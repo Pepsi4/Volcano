@@ -6,12 +6,14 @@ using TMPro;
 public class Shop : MonoBehaviour
 {
     private GoldenSmileBuff goldenSmileBuff;
+    private MashroomSmileBuff mushroomSmileBuff;
 
     public UnityEngine.Events.UnityEvent OnCoinsValueChanged; // going to execute when coins value are changed.
 
     private void Start()
     {
         goldenSmileBuff = new GoldenSmileBuff();
+        mushroomSmileBuff = new MashroomSmileBuff();
     }
 
     [SerializeField]
@@ -42,10 +44,6 @@ public class Shop : MonoBehaviour
                 {
                     PlayerShop.AddBuff(goldenSmileBuff);
 
-
-
-
-
                     CoinsController.Coins -= goldenSmileBuff.Price;
                     OnCoinsValueChanged.Invoke();
 
@@ -57,16 +55,34 @@ public class Shop : MonoBehaviour
                     BuffsShower.UpdateBuffsPanel();
 
                 }
+                break;
 
+            case "MashroomSmileBuff":
+                if (CoinsController.Coins >= mushroomSmileBuff.Price)
+                {
+                    PlayerShop.AddBuff(mushroomSmileBuff);
+
+                    CoinsController.Coins -= mushroomSmileBuff.Price;
+                    OnCoinsValueChanged.Invoke();
+
+                    mushroomSmileBuff.IncreaseChance();
+                    mushroomSmileBuff.IncreasePrice();
+                    mushroomSmileBuff.Level++;
+
+                    UpdateUI(mushroomSmileBuff.Price, mushroomSmileBuff.Name, mushroomSmileBuff.Description);
+                    BuffsShower.UpdateBuffsPanel();
+
+                }
                 break;
         }
     }
 }
 
+
 public class Buff : MonoBehaviour
 {
     virtual public string Description { get; set; }
-    public int Level { get; set; } = 1;
+    public int Level { get; set; } = 0;
 
     [SerializeField]
     public virtual Sprite Sprite { get; set; }
@@ -87,11 +103,60 @@ public interface IBuff
 
 }
 
+public class MashroomSmileBuff : Buff
+{
+    public override Sprite Sprite
+    {
+        get
+        {
+            Debug.Log("Sprites/" + GetType());
+            return Resources.Load<Sprite>("Sprites/" + GetType());
+        }
+    }
+
+    public override string Description
+    {
+        get
+        {
+            return "In the next session chanse of spawn a mashroom smile will be " + _chance + "%";
+        }
+    }
+
+    public override string Name
+    {
+        get
+        {
+            return "MASHROOM SMILE LEVEL " + Level;
+        }
+    }
+
+    private int price = 60;
+    public int Price
+    {
+        get { return (price * (int)_pricePercentsModifier / 100); }
+
+        set { price = value; }
+    }
+
+
+    private float _chance = 15f;
+    private float _increaseChance = 5f;
+
+    public void IncreaseChance()
+    {
+        _chance += _increaseChance;
+    }
+}
+
 public class GoldenSmileBuff : Buff
 {
     public override Sprite Sprite
     {
-        get { return Resources.Load<Sprite>("Sprites/Slime1"); }
+        get
+        {
+            Debug.Log(GetType());
+            return Resources.Load<Sprite>("Sprites/" + GetType());
+        }
     }
 
     public override string Description
