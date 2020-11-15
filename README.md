@@ -1,5 +1,5 @@
 # Volcano
-2D Clicker game with slimes!
+2D Clicker game with slimes! The game is in development!
 
 Programming language: C#
 
