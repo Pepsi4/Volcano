@@ -17,6 +17,7 @@ public class CoinsController : MonoBehaviour
         set
         {
             coins = value;
+            SaveValue();
         }
     }
     public Text coinText;
@@ -24,7 +25,7 @@ public class CoinsController : MonoBehaviour
 
     public void UpdateCoinUI()
     {
-        Debug.Log("UpdateCoinUI");
+        //Debug.Log("UpdateCoinUI");
         if (coinText != null)
             coinText.text = coins.ToString();
 
@@ -36,7 +37,7 @@ public class CoinsController : MonoBehaviour
 
     private void Awake()
     {
-       // PlayerPrefs.DeleteAll();
+        //PlayerPrefs.DeleteAll();
         LoadValue();
         UpdateCoinUI();
     }
@@ -58,7 +59,7 @@ public class CoinsController : MonoBehaviour
             }
         }
     }
-    public void SaveValue()
+    public static void SaveValue()
     {
         PlayerPrefs.SetInt("Coins", coins);
         PlayerPrefs.SetInt("isFirstLoad", 1);

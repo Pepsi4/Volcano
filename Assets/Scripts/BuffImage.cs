@@ -45,7 +45,7 @@ public class BuffImage : MonoBehaviour
 
     void UpdateHelpText()
     {
-        HelpText.GetComponent<TMPro.TextMeshProUGUI>().text = Name;
+        HelpText.GetComponent<TMPro.TextMeshProUGUI>().text = Name + Level;
 
         //HelpTextPanel.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, HelpText.GetComponent<RectTransform>().rect.height);
         //new Vector2(HelpTextPanel.GetComponent<RectTransform>().rect.width,

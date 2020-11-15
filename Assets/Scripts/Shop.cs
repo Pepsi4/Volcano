@@ -6,14 +6,14 @@ using TMPro;
 public class Shop : MonoBehaviour
 {
     private GoldenSmileBuff goldenSmileBuff;
-    private MashroomSmileBuff mushroomSmileBuff;
+    private MushroomSmileBuff mushroomSmileBuff;
 
     public UnityEngine.Events.UnityEvent OnCoinsValueChanged; // going to execute when coins value are changed.
 
     private void Start()
     {
         goldenSmileBuff = new GoldenSmileBuff();
-        mushroomSmileBuff = new MashroomSmileBuff();
+        mushroomSmileBuff = new MushroomSmileBuff();
     }
 
     [SerializeField]
@@ -51,13 +51,13 @@ public class Shop : MonoBehaviour
                     goldenSmileBuff.IncreasePrice();
                     goldenSmileBuff.Level++;
 
-                    UpdateUI(goldenSmileBuff.Price, goldenSmileBuff.Name, goldenSmileBuff.Description);
+                    UpdateUI(goldenSmileBuff.Price, goldenSmileBuff.Name + (goldenSmileBuff.Level + 1), goldenSmileBuff.Description);
                     BuffsShower.UpdateBuffsPanel();
 
                 }
                 break;
 
-            case "MashroomSmileBuff":
+            case "MushroomSmileBuff":
                 if (CoinsController.Coins >= mushroomSmileBuff.Price)
                 {
                     PlayerShop.AddBuff(mushroomSmileBuff);
@@ -69,7 +69,7 @@ public class Shop : MonoBehaviour
                     mushroomSmileBuff.IncreasePrice();
                     mushroomSmileBuff.Level++;
 
-                    UpdateUI(mushroomSmileBuff.Price, mushroomSmileBuff.Name, mushroomSmileBuff.Description);
+                    UpdateUI(mushroomSmileBuff.Price, mushroomSmileBuff.Name + (mushroomSmileBuff.Level + 1), mushroomSmileBuff.Description);
                     BuffsShower.UpdateBuffsPanel();
 
                 }
@@ -81,6 +81,10 @@ public class Shop : MonoBehaviour
 
 public class Buff : MonoBehaviour
 {
+    public virtual SlimeType SlimeType { get; set; }
+
+    protected float _chance = 0.15f;
+    public float Chance { get { return _chance; } set { _chance = value; } }
     virtual public string Description { get; set; }
     public int Level { get; set; } = 0;
 
@@ -89,7 +93,7 @@ public class Buff : MonoBehaviour
     virtual public string Name { get; set; }
 
     protected float _pricePercentsModifier = 100f;
-    private float _deltaPricePercents = 10f;
+    private float _deltaPricePercents = 10f; // something is wrong here...
 
     public void IncreasePrice()
     {
@@ -103,8 +107,124 @@ public interface IBuff
 
 }
 
-public class MashroomSmileBuff : Buff
+public enum SlimeType
 {
+    Slime = 1,
+    MushroomSlime = 2,
+    GoldenSlime = 3,
+    MiddleSlime = 4,
+    FireSlime = 5,
+    IceSlime = 6
+}
+
+public class SlimeBuff : Buff
+{
+    public override SlimeType SlimeType { get; set; } = SlimeType.Slime;
+    //new public int SlimeType2 = 1;
+    public override string Name { get { return "SlimeBuff"; } }
+}
+
+public class MiddleSlimeBuff : Buff
+{
+    new int _chance = 50;
+    public override SlimeType SlimeType { get; set; } = SlimeType.MiddleSlime;
+    public override string Name { get { return "MiddleSlimeBuff"; } }
+}
+
+public class FireSmileBuff : Buff
+{
+    public override SlimeType SlimeType { get; set; } = SlimeType.FireSlime;
+
+    public override Sprite Sprite
+    {
+        get
+        {
+            Debug.Log("Sprites/" + GetType());
+            return Resources.Load<Sprite>("Sprites/" + GetType());
+        }
+    }
+
+    public override string Description
+    {
+        get
+        {
+            return "In the next session chanse of spawn a fire smile will be " + _chance + "%";
+        }
+    }
+
+    public override string Name
+    {
+        get
+        {
+            return "Fire Slime";
+        }
+    }
+
+    private int price = 160;
+    public int Price
+    {
+        get { return (price * (int)_pricePercentsModifier / 100); }
+
+        set { price = value; }
+    }
+
+    private int _increaseChance = 5;
+
+    public void IncreaseChance()
+    {
+        _chance += _increaseChance;
+    }
+}
+
+
+public class IceSlimeBuff : Buff
+{
+    public override SlimeType SlimeType { get; set; } = SlimeType.IceSlime;
+
+    public override Sprite Sprite
+    {
+        get
+        {
+            Debug.Log("Sprites/" + GetType());
+            return Resources.Load<Sprite>("Sprites/" + GetType());
+        }
+    }
+
+    public override string Description
+    {
+        get
+        {
+            return "In the next session chanse of spawn an ice smile will be " + _chance + "%";
+        }
+    }
+
+    public override string Name
+    {
+        get
+        {
+            return "Ice Slime";
+        }
+    }
+
+    private int price = 160;
+    public int Price
+    {
+        get { return (price * (int)_pricePercentsModifier / 100); }
+
+        set { price = value; }
+    }
+
+    private int _increaseChance = 5;
+
+    public void IncreaseChance()
+    {
+        _chance += _increaseChance;
+    }
+}
+
+public class MushroomSmileBuff : Buff
+{
+    public override SlimeType SlimeType { get; set; } = SlimeType.MushroomSlime;
     public override Sprite Sprite
     {
         get
@@ -126,7 +246,7 @@ public class MashroomSmileBuff : Buff
     {
         get
         {
-            return "MASHROOM SMILE LEVEL " + Level;
+            return "Mushroom Slime";
         }
     }
 
@@ -139,8 +259,8 @@ public class MashroomSmileBuff : Buff
     }
 
 
-    private float _chance = 15f;
-    private float _increaseChance = 5f;
+
+    private int _increaseChance = 5;
 
     public void IncreaseChance()
     {
@@ -150,6 +270,8 @@ public class MashroomSmileBuff : Buff
 
 public class GoldenSmileBuff : Buff
 {
+    override public SlimeType SlimeType { get; set; } = SlimeType.GoldenSlime;
+
     public override Sprite Sprite
     {
         get
@@ -171,7 +293,7 @@ public class GoldenSmileBuff : Buff
     {
         get
         {
-            return "GOLDEN SMILE LEVEL " + Level;
+            return "GOLDEN SMILE";
         }
     }
 
@@ -184,8 +306,7 @@ public class GoldenSmileBuff : Buff
     }
 
 
-    private float _chance = 15f;
-    private float _increaseChance = 5f;
+    private int _increaseChance = 5;
 
     public void IncreaseChance()
     {
@@ -193,7 +314,3 @@ public class GoldenSmileBuff : Buff
     }
 }
 
-public enum Buffs
-{
-    GoldenSlime
-}

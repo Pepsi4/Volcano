@@ -22,7 +22,7 @@ public class HeartScript : MonoBehaviour
         {
             Health--;
             OnPlayerGetDamage();
-            collision.gameObject.GetComponent<Enemy>().Destory();
+            collision.gameObject.GetComponent<Enemy>().Destroy();
         }
     }
 

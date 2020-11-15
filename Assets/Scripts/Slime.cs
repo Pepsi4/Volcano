@@ -1,9 +1,52 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class Slime : Enemy
 {
     protected Animator animator;
-    protected float Health = 4;
+
+
+    public WaterController WaterController;
+    public FireController FireController;
+
+
+    private Rigidbody2D rigidbody;
+
+    new public string GotDamageAnimation = "Slime_got_damage";
+
+    public void HideHealthPanel()
+    {
+        Debug.Log("HideHealthPanel");
+        HpBar.SetActive(false);
+    }
+
+    protected SpriteRenderer hpBarSpriteRenderer;
+
+    new protected int _health = 4;
+
+    public void Start()
+    {
+        animator = GetComponent<Animator>();
+        rigidbody = GetComponent<Rigidbody2D>();
+
+        hpBarSpriteRenderer = HpBar.GetComponent<SpriteRenderer>();
+
+        StartCoroutine(StartSlimeJump());
+    }
+
+    private void Move()
+    {
+        rigidbody.AddForce(new Vector3(-0.7f, 1.2f, 0), ForceMode2D.Impulse);
+    }
+
+    private float jupmDeltaTime = 3f;
+
+    private IEnumerator StartSlimeJump()
+    {
+        Move();
+        yield return new WaitForSeconds(jupmDeltaTime);
+        StartCoroutine(StartSlimeJump());
+    }
 
     public Sprite HealthBar_4;
     public Sprite HealthBar_3;
@@ -11,63 +54,67 @@ public class Slime : Enemy
     public Sprite HealthBar_1;
     public GameObject HpBar;
 
-    new public string GotDamageAnimation = "Slime_got_damage";
-
-    protected SpriteRenderer hpBarSpriteRenderer;
-
-    void Start()
-    {
-        animator = GetComponent<Animator>();
-
-        //Debug.Log(animator);
-
-        hpBarSpriteRenderer = HpBar.GetComponent<SpriteRenderer>();
-    }
-
-    protected virtual void GetDamage()
+    public virtual void GetDamage()
     {
         Health--;
-        animator.Play(GotDamageAnimation);
 
-        switch (Health)
+        if (isDead == false)
         {
-            case 3:
-                hpBarSpriteRenderer.sprite = HealthBar_3;
-                break;
 
-            case 2:
-                hpBarSpriteRenderer.sprite = HealthBar_2;
-                break;
 
-            case 1:
-                hpBarSpriteRenderer.sprite = HealthBar_1;
-                break;
+            animator.Play(GotDamageAnimation);
+
+            switch (Health)
+            {
+                case 3:
+                    hpBarSpriteRenderer.sprite = HealthBar_3;
+                    break;
+
+                case 2:
+                    hpBarSpriteRenderer.sprite = HealthBar_2;
+                    break;
+
+                case 1:
+                    hpBarSpriteRenderer.sprite = HealthBar_1;
+                    break;
+            }
         }
     }
 
-    private float minRangeChance = 0;
-    private float maxRangeChance = 1;
-    protected bool IsDroppingCoin()
+    public virtual void OnMouseDown()
     {
-        //Debug.Log(Random.Range(minRangeChance, maxRangeChance));
-        bool result = Mathf.RoundToInt(Random.Range(minRangeChance, maxRangeChance)) == 1;
-        Debug.Log(result);
-        return result;
-    }
-
-    private void OnBecameInvisible()
-    {
-        Destory();
-    }
-
-    private void OnMouseDown()
-    {
-        GetDamage();
-
-        if (Health <= 0)
+        if (isDead == false)
         {
-            if (IsDroppingCoin()) DropCoin();
-            Destory();
+            GetDamage();
         }
+
+
+        try
+        {
+            if (WaterController.IsWaterEnable)
+            {
+                WaterController.StopMakingWater();
+            }
+
+            if (FireController.IsFireEnable)
+            {
+                FireController.StopMakingFire();
+            }
+        }
+        catch (System.NullReferenceException)
+        {
+            Debug.Log("WaterController or FireController is disabled.");
+        }
+
     }
+
+
+
+    public void TryToDropCoin()
+    {
+        if (IsDroppingCoin()) DropCoin();
+    }
+
+
+    //public UnityEngine.Events.UnityEvent OnDeath;
 }

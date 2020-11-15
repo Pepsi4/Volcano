@@ -7,6 +7,8 @@ TagManager:
   - Shootable
   - Bullet
   - Enemy
+  - Coin
+  - Metaball_liquid
   layers:
   - Default
   - TransparentFX
@@ -19,9 +21,9 @@ TagManager:
   - Lighting
   - Ground
   - Postprocessing
-  - 
-  - 
-  - 
+  - Slime
+  - Background
+  - BackBackground
   - 
   - 
   - 
@@ -41,12 +43,30 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Fire
-    uniqueID: 3804908061
+  - name: Background
+    uniqueID: 357174497
+    locked: 0
+  - name: Grass
+    uniqueID: 339222107
     locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Fire
+    uniqueID: 3804908061
+    locked: 0
   - name: UI
     uniqueID: 3016047023
+    locked: 0
+  - name: Takes shadow
+    uniqueID: 3354794435
+    locked: 0
+  - name: Without shadow
+    uniqueID: 3366091503
+    locked: 0
+  - name: New Layer
+    uniqueID: 1789073535
+    locked: 0
+  - name: Slime
+    uniqueID: 4099660455
     locked: 0

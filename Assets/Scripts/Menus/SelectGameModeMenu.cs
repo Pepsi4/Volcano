@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class SelectGameModeMenu : MonoBehaviour
@@ -7,9 +7,9 @@ public class SelectGameModeMenu : MonoBehaviour
     [SerializeField]
     int NormalModeLevelNumber = 1;
 
-    public void NormalGameMode()
+    public void LoadNormalGameMode()
     {
-
+        SceneManager.LoadScene(NormalModeLevelNumber);
     }
 
     public void HardGameMode()

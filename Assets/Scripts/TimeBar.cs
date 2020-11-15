@@ -51,15 +51,15 @@ public class TimeBar : MonoBehaviour
     private void StartWave_1()
     {
         Debug.Log("First wave started!");
-        SlimeSpawner.SpawningCount = Spawner.GetWave().EnemiesInWave_1;
-        SlimeSpawner.StartSpawningEnemies();
+        //SlimeSpawner.SpawningCount = Spawner.GetWave().EnemiesInWave_1;
+        //SlimeSpawner.StartSpawningEnemies();
     }
 
     private void StartWave_2()
     {
         Debug.Log("Second wave started!");
-        SlimeSpawner.SpawningCount = Spawner.GetWave().EnemiesInWave_2;
-        SlimeSpawner.StartSpawningEnemies();
+        //SlimeSpawner.SpawningCount = Spawner.GetWave().EnemiesInWave_2;
+        //SlimeSpawner.StartSpawningEnemies();
     }
 }
 

@@ -4,10 +4,18 @@ using UnityEngine;
 
 public class SlimeMiddle : Slime
 {
-    new float Health = 8;
+    //new float Health = 8;
 
-    protected override void GetDamage()
+    new protected int _health = 8;
+    public SlimeMiddle()
     {
+        Health = _health;
+    }
+
+    public override void GetDamage()
+    {
+        Debug.Log("Health : " + Health);
+
         Health--;
         animator.Play(GotDamageAnimation);
         switch (Health)
@@ -26,14 +34,7 @@ public class SlimeMiddle : Slime
         }
     }
 
-    private void OnMouseDown()
-    {
-        GetDamage();
 
-        if (Health <= 0)
-        {
-            if (IsDroppingCoin()) DropCoin();
-            Destory();
-        }
-    }
+
+    
 }

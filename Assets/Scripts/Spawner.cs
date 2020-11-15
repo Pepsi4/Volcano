@@ -18,10 +18,10 @@ public class Wave
 
 public class Spawner : MonoBehaviour
 {
-    [Header("Hi there!")]
+    [Header("Hi there111111")]
     public List<GameObject> ObjectsToSpawn = new List<GameObject>();
     public static List<bool> AreObjectsCouldSpawn = new List<bool>();
-    public List<Transform> SpawnPositions = new List<Transform>();
+    
 
     [SerializeField]
     protected static Wave WaveCurrent = new Wave();

@@ -7,6 +7,10 @@ public class PlayerShop : MonoBehaviour
     public static List<Buff> Buffs = new List<Buff>();
 
 
+    private void Start()
+    {
+    }
+
     /// <summary>
     /// Returns TRUE if buff is updated in list. Returns FALSE if buff is added as new one.
     /// </summary>
@@ -14,6 +18,7 @@ public class PlayerShop : MonoBehaviour
     /// <returns></returns>
     public static bool AddBuff(Buff buff)
     {
+
         int sameBuffNumber = 0;
         bool isListShouldChange = false;
 
@@ -27,7 +32,7 @@ public class PlayerShop : MonoBehaviour
         }
 
         Debug.Log("isListShouldChange : " + isListShouldChange);
-        Debug.Log("sameBuffNumber :" + sameBuffNumber);
+        //Debug.Log("sameBuffNumber :" + sameBuffNumber);
 
         if (isListShouldChange)
         {

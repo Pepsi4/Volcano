@@ -5,8 +5,14 @@ TextureImporter:
   - first:
       213: 1604359533870365747
     second: golden smile_0
+  - first:
+      213: -5384030552512483305
+    second: GoldenSmileBuff_0
+  - first:
+      213: 4468621974010786806
+    second: GoldenSmileBuff_1
   externalObjects: {}
-  serializedVersion: 10
+  serializedVersion: 11
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -60,6 +66,7 @@ TextureImporter:
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  applyGammaDecoding: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
